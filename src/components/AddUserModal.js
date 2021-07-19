@@ -12,6 +12,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 export default function AddUserModal({agregarUser}) {
   const [open, setOpen] = React.useState(false);
   const [user, setUser]= useState({
+    id: '',
     nombre: '',
     apellido:'',
     email: '',
@@ -21,33 +22,44 @@ export default function AddUserModal({agregarUser}) {
 
   const handleClickOpen = () => {
     setOpen(true);
+    setId();
   };
 
   const handleClose = () => {
     setOpen(false);
   };
 
-  const handleChange= e => {
+  const handleChange = e => {
     const {name, value} = e.target;
     setUser(prevState=>({
       ...prevState,
       [name]: value
     }))
-    console.log(user);
   }
 
-  const handleChangeCheckbox= e => {
+  const handleChangeCheckbox = e => {
     const {name, checked} = e.target;
     setUser(prevState=>({
       ...prevState,
       [name]: checked
     }))
-    console.log(user);
+  }
+
+  const setId = () => {
+    const newId = new Date().getTime().toString()
+    setUser({
+      id: newId,
+      nombre: '',
+      apellido:'',
+      email: '',
+      imagen: '',
+      activo: false
+    })
   }
 
   const agregar = () => {
     agregarUser(user)
-    setOpen(false);
+    setOpen(false)
   }
 
   return (

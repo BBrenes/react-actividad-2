@@ -7,7 +7,7 @@ import CheckIcon from '@material-ui/icons/Check';
 import ClearIcon from '@material-ui/icons/Clear';
 import DeleteIcon from '@material-ui/icons/Delete'
 
-export default function UserRow({user}) {
+export default function UserRow({user, toggleActivo, deleteUser}) {
 
     const useStyles = makeStyles({
         root: {
@@ -24,24 +24,28 @@ export default function UserRow({user}) {
 
     return (
         <Paper elevation={3} style={{ height:75, width:500, marginBottom:20 }}>
-            <Grid container spacing={2} justifyContent="flex-start" alignItems="center" style={{ height:'100%', width:'100%'}} >
-                <Grid item>
-                    <img src={user.imagen} alt={user.nombre} className={classes.root} style={{borderColor: user.activo ? 'rgb(65, 214, 121)' : '#F66060'}}/>
+            <Grid container spacing={2} justifyContent="space-between" alignItems="center" style={{ height:'100%', width: '100%'}} >
+                <Grid container xs={9} item spacing={2} justifyContent="flex-start" alignItems="center">
+                    <Grid item>
+                        <img src={user.imagen} alt={user.nombre} className={classes.root} style={{borderColor: user.activo ? 'rgb(65, 214, 121)' : '#F66060'}}/>
+                    </Grid>
+                    <Grid item>
+                        <Typography variant="h6" style={{ fontSize:14 }}>
+                            {user.nombre} {user.apellido} ({user.email})
+                        </Typography>
+                    </Grid>
                 </Grid>
-                <Grid item>
-                    <Typography variant="h6" style={{ fontSize:14 }}>
-                        {user.nombre} {user.apellido} ({user.email})
-                    </Typography>
-                </Grid>
-                <Grid item>
-                    {
-                        user.activo ? 
-                        <ClearIcon /> :
-                        <CheckIcon />
-                    }
-                </Grid>
-                <Grid item>
-                    <DeleteIcon />
+                <Grid container item xs={3} spacing={2} justifyContent="flex-end" alignItems="center">
+                    <Grid item>
+                        {
+                            user.activo ? 
+                            <ClearIcon onClick={() => toggleActivo(user.id)}/> :
+                            <CheckIcon onClick={() => toggleActivo(user.id)}/>
+                        }
+                    </Grid>
+                    <Grid item>
+                        <DeleteIcon onClick={() => deleteUser(user.id)}/>
+                    </Grid>
                 </Grid>
             </Grid>
         </Paper>

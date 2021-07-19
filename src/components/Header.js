@@ -4,9 +4,9 @@ import Grid from '@material-ui/core/Grid'
 
 export default function Header({data, ...rest}) {
     return (
-        <Grid container spacing={2} justify="center" alignItems="center">
+        <Grid container justifyContent="center" alignItems="center">
             <Grid item>
-            <h3>User Manager: {data.length}</h3>
+            <h3 style={{ marginRight: 16 }}>User Manager: {data.length}</h3>
             </Grid>
             <Grid item >
             <AddUserModal {...rest} />

@@ -11,11 +11,29 @@ function App() {
     setData(oldData => [...oldData, user])
   }
 
+  const toggleActivo = (id) => {
+    const newData = data.map(user => {
+      if (user.id === id){
+        return{
+          ...user,
+          activo: !user.activo
+        }
+      }
+      return user
+    })
+    setData(newData)
+  }
+
+  const deleteUser = (id) => {
+    const newData = data.filter(user => user.id !== id)
+    setData(newData)
+  }
+
   return (
     <div className="App">
       <header className="App-header">
         <Header data={data} agregarUser={agregarUser}/>
-        <UserList data={data} />
+        <UserList data={data} toggleActivo={toggleActivo} deleteUser={deleteUser}/>
       </header>
     </div>
   );
